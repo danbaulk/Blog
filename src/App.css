@@ -36,3 +36,48 @@
     transform: rotate(360deg);
   }
 }
+
+.banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #999ca1;
+  padding: 10px 20px;
+  color: black;
+}
+
+.banner-title {
+  font-size: 1.5em;
+}
+
+.banner-links a {
+  margin-left: 15px; 
+}
+
+.banner-links a:first-child {
+  margin-left: 0;
+}
+
+.banner-links a:hover {
+  text-decoration: underline;
+}
+
+.banner-logo {
+  width: 48px;
+  height: 48px;
+}
+
+.intro {
+  padding: 20px;
+  background-color: #282c34;
+  color: white;
+}
+
+.intro h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  font-size: 1.2em;
+}
