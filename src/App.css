@@ -87,15 +87,29 @@
   color: white;
 }
 
-.carousel-section h3 {
+.carousel-item a {
+  text-decoration: none; /* Remove underline after clicking link */
+}
+
+.carousel-item h3 {
   font-size: 1.5em;
   margin-bottom: 20px;
   color: white;
 }
 
-.carousel-section p {
+.carousel-item p {
   background-color: #282c34;
   color: white;
   padding: 10px;
   font-size: 1em;
+}
+
+.carousel-item:hover {
+  background-color: #999ca1;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.carousel-item:hover p {
+  background-color: #999ca1;
+  transition: background-color 0.3s ease-in-out;
 }

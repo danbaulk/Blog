@@ -51,20 +51,22 @@ function App() {
       <section className="carousel-section">
         <h2>My Projects</h2>
         <Carousel responsive={responsive} autoPlay={true} infinite={true}>
-          <div>
-            <img src={fplLogo} alt="FPL Assitant Manager" className="fpl-logo"/>
-            <h3>FPL Assitant Manager</h3>
-            <p>This project extended the work I did for my
-              Final Year Project in University, I've trained multiple ANN models on a large historic FPL dataset
-              and created a backend golang API which interacts with the offical FPL API to get the latest data
-              and predict the highest scoring team for the upcoming gameweek.</p>
+          <div className="carousel-item">
+            <a href="https://github.com/danbaulk/FPL-AI?tab=readme-ov-file#fpl-ai" target="_blank" rel="noopener noreferrer">
+              <img src={fplLogo} alt="FPL Assitant Manager" className="fpl-logo"/>
+              <h3>FPL Assitant Manager</h3>
+              <p>This project extended the work I did for my
+                Final Year Project in University, I've trained multiple ANN models on a large historic FPL dataset
+                and created a backend golang API which interacts with the offical FPL API to get the latest data
+                and predict the highest scoring team for the upcoming gameweek.</p>
+            </a>
           </div>
-          <div>
+          <div className="carousel-item">
             <img src={comingSoon} alt="Blog Post 2" className="comingsoon-logo"/>
             <h3>Blog Post 2</h3>
             <p>Coming Soon</p>
           </div>
-          <div>
+          <div className="carousel-item">
             <img src={comingSoon} alt="Blog Post 3" className="comingsoon-logo"/>
             <h3>Blog Post 3</h3>
             <p>Coming Soon</p>
