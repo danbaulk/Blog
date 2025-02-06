@@ -1,21 +1,12 @@
+/*App Section*/
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 50;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,18 +15,7 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+/* Banner Section */
 
 .banner {
   display: flex;
@@ -67,6 +47,8 @@
   height: 48px;
 }
 
+/* Intro Section*/
+
 .intro {
   padding: 20px;
   background-color: #282c34;
@@ -80,4 +62,40 @@
 
 .intro p {
   font-size: 1.2em;
+}
+
+/* Carousel Section */
+
+.carousel-section {
+  padding: 20px;
+  background-color: #282c34;
+}
+
+.fpl-logo {
+  width: 400px;
+  height: 200px;
+}
+
+.comingsoon-logo {
+  width: 200px;
+  height: 200px;
+}
+
+.carousel-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.carousel-section h3 {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.carousel-section p {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  font-size: 1em;
 }
