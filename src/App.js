@@ -5,6 +5,7 @@ import linkedinLogo from './assets/linkedin.png';
 import githubLogo from './assets/github.png';
 import fplLogo from './assets/fpl-logo.png';
 import comingSoon from './assets/coming-soon.png';
+import baulkLogo from './assets/logo.jpeg'; 
 
 import './App.css';
 import 'react-multi-carousel/lib/styles.css';
@@ -32,13 +33,13 @@ function App() {
   return (
     <div className="App">
       <div className="banner">
-        <div className="banner-title">B(aulk)log</div>
+        <img src={baulkLogo} alt="Baulk Logo" className="banner-logo"/>
         <div className="banner-links">
           <a href="https://www.linkedin.com/in/danielbaulk/" target="_blank" rel="noopener noreferrer">
-            <img src={linkedinLogo} alt="LinkedIn" className="banner-logo"/>
+            <img src={linkedinLogo} alt="LinkedIn" className="banner-link"/>
           </a>
           <a href="https://github.com/danbaulk" target="_blank" rel="noopener noreferrer">
-            <img src={githubLogo} alt="GitHub" className="banner-logo"/>
+            <img src={githubLogo} alt="GitHub" className="banner-link"/>
           </a>
         </div>
       </div>
