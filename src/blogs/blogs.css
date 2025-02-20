@@ -1,14 +1,18 @@
 .blog-post {
     padding: 20px;
-    background-color: #f0f0f0;
-    color: #333;
+    color: black;
   }
-  
-  .blog-post h1 {
-    font-size: 2em;
-    margin-bottom: 10px;
-  }
-  
-  .blog-post p {
-    font-size: 1.2em;
-  }
+
+.blog-post h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.blog-post p {
+  font-size: 1.2em;
+}
+
+.fpl-logo {
+  width: 400px;
+  height: 200px;
+}

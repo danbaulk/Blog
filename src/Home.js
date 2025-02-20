@@ -40,7 +40,7 @@ function Home() {
             <Link to="/fpl-project">
               <img src={fplLogo} alt="FPL Assistant Manager" className="fpl-logo"/>
               <h3>FPL Assistant Manager</h3>
-              <p>This project extended the work I did for my Final Year Project in University...</p>
+              <p>Utilise AI Models I trained to predict the highest scoring team for the next gameweek</p>
             </Link>
           </div>
           <div className="carousel-item">
