@@ -45,7 +45,7 @@ function App() {
       </div>
       <header className="App-header">
         <section className="intro">
-          <h2>Welcome to my B(aulk)log</h2>
+          <h2>Welcome!</h2>
           <p>This is a blog to share the various projects I'm working on. Stay tuned for updates!</p>
         </section>
       </header>
