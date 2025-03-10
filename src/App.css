@@ -1,4 +1,4 @@
-/*App Section*/
+/* App Section */
 
 .App {
   text-align: center;
@@ -55,7 +55,7 @@ body {
   height: 48px;
 }
 
-/* Intro Section*/
+/* Intro Section */
 
 .intro {
   padding: 20px;
@@ -96,7 +96,7 @@ body {
 }
 
 .carousel-item a {
-  text-decoration: none; /* Remove underline after clicking link */
+  text-decoration: none;
 }
 
 .carousel-item h3 {
