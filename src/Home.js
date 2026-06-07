@@ -26,36 +26,62 @@ const responsive = {
 
 function Home() {
   return (
-    <div>
-      <header className="App-header">
-        <section className="intro">
-          <h2>Welcome!</h2>
-          <p>This is a blog to share the various projects I'm working on. Stay tuned for updates!</p>
-        </section>
-      </header>
-      <section className="carousel-section">
-        <h2>My Projects</h2>
-        <Carousel responsive={responsive} autoPlay={true} infinite={true}>
-          <div className="carousel-item">
-            <Link to="/fpl-project">
-              <img src={fplLogo} alt="FPL Assistant Manager" className="fpl-logo"/>
-              <h3>FPL Assistant Manager</h3>
-              <p>Utilise AI Models I trained to predict the highest scoring team for the next gameweek</p>
-            </Link>
-          </div>
-          <div className="carousel-item">
-              <img src={comingSoon} alt="Blog Post 2" className="comingsoon-logo"/>
-              <h3>Blog Post 2</h3>
-              <p>Coming Soon</p>
-          </div>
-          <div className="carousel-item">
-              <img src={comingSoon} alt="Blog Post 3" className="comingsoon-logo"/>
-              <h3>Blog Post 3</h3>
-              <p>Coming Soon</p>
-          </div>
-        </Carousel>
+    <main>
+      <section className="intro">
+        <div className="container">
+          <p className="intro-eyebrow">Hi, I'm Dan 👋</p>
+          <h1>I build things, and write about them.</h1>
+          <p className="intro-lead">
+            A home for the projects I'm working on — from machine learning experiments to
+            full-stack builds. Have a look around.
+          </p>
+        </div>
       </section>
-    </div>
+
+      <section className="carousel-section">
+        <div className="container">
+          <h2 className="section-title">My Projects</h2>
+          <Carousel
+            responsive={responsive}
+            autoPlay={true}
+            infinite={true}
+            keyBoardControl={true}
+            itemClass="carousel-item"
+          >
+            <Link to="/fpl-project" className="project-card">
+              <div className="project-card__media">
+                <img src={fplLogo} alt="FPL Assistant Manager"/>
+              </div>
+              <div className="project-card__body">
+                <h3>FPL Assistant Manager</h3>
+                <p>Machine learning models I trained to predict the highest scoring Fantasy Premier League team for the next gameweek.</p>
+                <span className="project-card__cta">Read more →</span>
+              </div>
+            </Link>
+
+            <article className="project-card project-card--placeholder">
+              <div className="project-card__media">
+                <img src={comingSoon} alt="Coming soon"/>
+              </div>
+              <div className="project-card__body">
+                <h3>Coming Soon</h3>
+                <p>Another project write-up is on the way.</p>
+              </div>
+            </article>
+
+            <article className="project-card project-card--placeholder">
+              <div className="project-card__media">
+                <img src={comingSoon} alt="Coming soon"/>
+              </div>
+              <div className="project-card__body">
+                <h3>Coming Soon</h3>
+                <p>Another project write-up is on the way.</p>
+              </div>
+            </article>
+          </Carousel>
+        </div>
+      </section>
+    </main>
   );
 }
 

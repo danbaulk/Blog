@@ -4,120 +4,217 @@
   text-align: center;
 }
 
-body {
-  background-color: #c6c6c6;
-}
-
-.App-header {
-  background-color: #c6c6c6;
-  min-height: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: black;
-}
-
-/* Banner Section */
+/* Banner / Header */
 
 .banner {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: rgba(22, 26, 34, 0.85);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.banner-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-3) var(--space-5);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 68px;
-  background-color: #fafafa;
-  color: black;
+}
+
+.banner-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text);
+}
+
+.banner-brand:hover {
+  color: var(--text);
 }
 
 .banner-logo {
-  height: 70px;
+  height: 34px;
+  width: auto;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  display: block;
 }
 
-.banner-title {
-  font-size: 1.5em;
-}
-
-.banner-links a {
-  margin-left: 15px; 
-}
-
-.banner-links a:first-child {
-  margin-left: 0;
-}
-
-.banner-links a:hover {
-  text-decoration: underline;
+.banner-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
 }
 
 .banner-link {
-  width: 48px;
-  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  transition: color var(--transition), background-color var(--transition);
 }
 
-/* Intro Section */
+.banner-link:hover {
+  color: var(--accent-hover);
+  background-color: var(--accent-soft);
+}
+
+/* Intro / Hero Section */
 
 .intro {
-  padding: 20px;
-  background-color: #c6c6c6;
-  color: black;
+  text-align: center;
+  padding: var(--space-8) 0 var(--space-7);
 }
 
-.intro h2 {
-  font-size: 2em;
-  margin-bottom: 10px;
+.intro-eyebrow {
+  color: var(--accent-hover);
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0 0 var(--space-3);
 }
 
-.intro p {
-  font-size: 1.2em;
+.intro h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 auto var(--space-4);
+  max-width: 16ch;
+}
+
+.intro-lead {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 56ch;
+  margin: 0 auto;
 }
 
 /* Carousel Section */
 
 .carousel-section {
-  padding: 20px;
-  background-color: #c6c6c6;
+  padding: var(--space-5) 0 var(--space-8);
 }
 
-.fpl-logo {
-  width: 400px;
-  height: 200px;
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-align: left;
+  margin: 0 0 var(--space-5);
+  padding-left: var(--space-3);
+  border-left: 3px solid var(--accent);
 }
 
-.comingsoon-logo {
-  width: 200px;
-  height: 200px;
+/* Carousel slide gutters (itemClass lands on react-multi-carousel item) */
+.carousel-item {
+  padding: var(--space-2);
+  display: flex;
 }
 
-.carousel-section h2 {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: black;
+/* Project Cards */
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: left;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: transform var(--transition), border-color var(--transition),
+    box-shadow var(--transition);
 }
 
-.carousel-item a {
-  text-decoration: none;
+a.project-card:hover {
+  color: var(--text);
+  transform: translateY(-4px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-hover);
 }
 
-.carousel-item h3 {
-  font-size: 1.5em;
-  margin-bottom: 20px;
-  color: black;
+.project-card__media {
+  height: 170px;
+  background-color: var(--surface-2);
+  overflow: hidden;
 }
 
-.carousel-item p {
-  background-color: #c6c6c6;
-  color: black;
-  padding: 10px;
-  font-size: 1em;
+.project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.carousel-item:hover {
-  background-color: #999ca1;
-  transition: background-color 0.3s ease-in-out;
+.project-card__body {
+  padding: var(--space-4) var(--space-5) var(--space-5);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
-.carousel-item:hover p {
-  background-color: #999ca1;
-  transition: background-color 0.3s ease-in-out;
+.project-card__body h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+  color: var(--text);
+}
+
+.project-card__body p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-card__cta {
+  margin-top: var(--space-4);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-hover);
+}
+
+/* Placeholder cards */
+
+.project-card--placeholder {
+  border-style: dashed;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.project-card--placeholder .project-card__media img {
+  object-fit: contain;
+  padding: var(--space-5);
+}
+
+/* react-multi-carousel arrow buttons tinted to theme */
+.react-multiple-carousel__arrow {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+}
+
+.react-multiple-carousel__arrow:hover {
+  background: var(--accent);
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+  .intro {
+    padding: var(--space-7) 0 var(--space-6);
+  }
 }
