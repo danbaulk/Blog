@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Carousel from 'react-multi-carousel';
 
 import fplLogo from './assets/fpl-logo.png';
+import pantryThumb from './assets/pantry-planner.png';
 import comingSoon from './assets/coming-soon.png';
 
 const responsive = {
@@ -59,15 +60,16 @@ function Home() {
               </div>
             </Link>
 
-            <article className="project-card project-card--placeholder">
+            <Link to="/pantry" className="project-card">
               <div className="project-card__media">
-                <img src={comingSoon} alt="Coming soon"/>
+                <img src={pantryThumb} alt="The Pantry"/>
               </div>
               <div className="project-card__body">
-                <h3>Coming Soon</h3>
-                <p>Another project write-up is on the way.</p>
+                <h3>The Pantry</h3>
+                <p>A local-first meal planner that turns your weekly meals into a shopping list that builds itself — combined, scaled and grouped by supermarket aisle.</p>
+                <span className="project-card__cta">Read more →</span>
               </div>
-            </article>
+            </Link>
 
             <article className="project-card project-card--placeholder">
               <div className="project-card__media">
