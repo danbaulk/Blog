@@ -4,7 +4,7 @@ import Carousel from 'react-multi-carousel';
 
 import fplLogo from './assets/fpl-logo.png';
 import pantryThumb from './assets/pantry-planner.png';
-import comingSoon from './assets/coming-soon.png';
+import gymbuddyThumb from './assets/gymbuddy-today.png';
 
 const responsive = {
   superLargeDesktop: {
@@ -71,15 +71,16 @@ function Home() {
               </div>
             </Link>
 
-            <article className="project-card project-card--placeholder">
+            <Link to="/gymbuddy" className="project-card">
               <div className="project-card__media">
-                <img src={comingSoon} alt="Coming soon"/>
+                <img src={gymbuddyThumb} alt="GymBuddy"/>
               </div>
               <div className="project-card__body">
-                <h3>Coming Soon</h3>
-                <p>Another project write-up is on the way.</p>
+                <h3>GymBuddy</h3>
+                <p>A local-first gym tracker that round-robins through your routines, remembers every lift, and flags the exercises that have stopped going up.</p>
+                <span className="project-card__cta">Read more →</span>
               </div>
-            </article>
+            </Link>
           </Carousel>
         </div>
       </section>
