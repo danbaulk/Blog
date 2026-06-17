@@ -9,6 +9,7 @@ import 'react-multi-carousel/lib/styles.css';
 import Home from './Home';
 import FPLProject from './blogs/FPLProject';
 import PantryProject from './blogs/PantryProject';
+import GymBuddyProject from './blogs/GymBuddyProject';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/fpl-project" element={<FPLProject />} />
           <Route path="/pantry" element={<PantryProject />} />
+          <Route path="/gymbuddy" element={<GymBuddyProject />} />
         </Routes>
       </div>
     </Router>
