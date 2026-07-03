@@ -10,6 +10,7 @@ import Home from './Home';
 import FPLProject from './blogs/FPLProject';
 import PantryProject from './blogs/PantryProject';
 import GymBuddyProject from './blogs/GymBuddyProject';
+import AroundTheWorldProject from './blogs/AroundTheWorldProject';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path="/fpl-project" element={<FPLProject />} />
           <Route path="/pantry" element={<PantryProject />} />
           <Route path="/gymbuddy" element={<GymBuddyProject />} />
+          <Route path="/around-the-world" element={<AroundTheWorldProject />} />
         </Routes>
       </div>
     </Router>
