@@ -6,6 +6,7 @@ import fplLogo from './assets/fpl-logo.png';
 import pantryThumb from './assets/pantry-planner.png';
 import gymbuddyThumb from './assets/gymbuddy-today.png';
 import aroundtheworldThumb from './assets/aroundtheworld-map.png';
+import pocketmechanicThumb from './assets/pocketmechanic-car.png';
 
 const responsive = {
   superLargeDesktop: {
@@ -90,6 +91,17 @@ function Home() {
               <div className="project-card__body">
                 <h3>Around the World</h3>
                 <p>A local-first travel scratch-map: tap the countries you've been to, log dated visits, and watch a passport, badges and challenges build themselves.</p>
+                <span className="project-card__cta">Read more →</span>
+              </div>
+            </Link>
+
+            <Link to="/pocketmechanic" className="project-card">
+              <div className="project-card__media">
+                <img src={pocketmechanicThumb} alt="PocketMechanic"/>
+              </div>
+              <div className="project-card__body">
+                <h3>PocketMechanic</h3>
+                <p>A local-first car-care app that gives every part of your car a green, amber or red signal - and reads the garage receipt offline to fill it in for you.</p>
                 <span className="project-card__cta">Read more →</span>
               </div>
             </Link>
