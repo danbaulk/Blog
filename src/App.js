@@ -11,6 +11,7 @@ import FPLProject from './blogs/FPLProject';
 import PantryProject from './blogs/PantryProject';
 import GymBuddyProject from './blogs/GymBuddyProject';
 import AroundTheWorldProject from './blogs/AroundTheWorldProject';
+import PocketMechanicProject from './blogs/PocketMechanicProject';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
           <Route path="/pantry" element={<PantryProject />} />
           <Route path="/gymbuddy" element={<GymBuddyProject />} />
           <Route path="/around-the-world" element={<AroundTheWorldProject />} />
+          <Route path="/pocketmechanic" element={<PocketMechanicProject />} />
         </Routes>
       </div>
     </Router>
