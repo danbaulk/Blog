@@ -1,0 +1,153 @@
+/* Home-page galaxy: the WebGL stage plus the DOM overlays that follow its stars. */
+
+.galaxy {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: #000;
+}
+
+.galaxy-stage {
+  position: absolute;
+  inset: 0;
+  touch-action: manipulation;
+}
+
+.galaxy-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Overlays are positioned every frame from the scene via transform. */
+.galaxy-labels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.galaxy-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  white-space: nowrap;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+  transition: opacity var(--transition);
+  will-change: transform;
+}
+
+.galaxy-card.project-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  max-width: calc(100% - 2 * var(--space-3));
+  z-index: 3;
+  background-color: rgba(22, 26, 34, 0.86);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-color: var(--star, var(--accent));
+  box-shadow: var(--shadow-hover), 0 0 32px -8px var(--star, var(--accent));
+  will-change: transform;
+  animation: galaxy-card-in 0.18s ease-out;
+}
+
+/* The card follows its star, so the shared card hover lift would fight the transform. */
+a.galaxy-card.project-card:hover {
+  transform: none;
+  border-color: var(--star, var(--accent));
+}
+
+.galaxy-card .project-card__media {
+  height: 130px;
+}
+
+.galaxy-card .project-card__cta {
+  color: var(--star, var(--accent-hover));
+}
+
+@keyframes galaxy-card-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.galaxy-hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--space-6);
+  transform: translateX(-50%);
+  margin: 0;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background-color: rgba(13, 15, 20, 0.6);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.galaxy-hint--hidden {
+  opacity: 0;
+}
+
+/* Keyboard route to the projects: hidden until a link in it takes focus. */
+.galaxy-nav {
+  position: absolute;
+  left: var(--space-5);
+  bottom: var(--space-5);
+  z-index: 4;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.galaxy-nav:focus-within {
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+.galaxy-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  text-align: left;
+  background-color: rgba(22, 26, 34, 0.9);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.galaxy-nav a {
+  display: block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.galaxy-nav a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 0;
+  background-color: var(--accent-soft);
+}
+
+/* No WebGL: the same projects as a plain grid of cards. */
+.galaxy-fallback {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: var(--space-5);
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-8);
+}

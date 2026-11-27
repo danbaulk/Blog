@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <radialGradient id="tile-fill" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0" stop-color="#1b1830"/>
+      <stop offset="1" stop-color="#05060a"/>
+    </radialGradient>
+    <!-- The far side of the disk, lensed up and over the shadow: hottest at the top. -->
+    <linearGradient id="arch" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c2410c" stop-opacity="0.35"/>
+      <stop offset="0.3" stop-color="#fb923c"/>
+      <stop offset="0.5" stop-color="#fff1d6"/>
+      <stop offset="0.7" stop-color="#fb923c"/>
+      <stop offset="1" stop-color="#c2410c" stop-opacity="0.35"/>
+    </linearGradient>
+    <!-- The near side of the disk, crossing in front of the shadow. -->
+    <linearGradient id="disk" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c2410c" stop-opacity="0"/>
+      <stop offset="0.22" stop-color="#f97316"/>
+      <stop offset="0.43" stop-color="#ffd9a0"/>
+      <stop offset="0.5" stop-color="#fff7ea"/>
+      <stop offset="0.57" stop-color="#ffd9a0"/>
+      <stop offset="0.78" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#c2410c" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+  </defs>
+  <rect id="tile" width="32" height="32" rx="8" fill="url(#tile-fill)"/>
+  <circle cx="6.5" cy="7.5" r="0.45" fill="#c7d2fe" opacity="0.7"/>
+  <circle cx="26" cy="25.5" r="0.4" fill="#ffffff" opacity="0.5"/>
+  <circle cx="25.5" cy="7" r="0.3" fill="#fde68a" opacity="0.6"/>
+  <g transform="rotate(-10 16 16)">
+    <path d="M6.4 16.4A9.6 9.6 0 0 1 25.6 16.4" fill="none" stroke="url(#arch)" stroke-width="3" opacity="0.55" filter="url(#glow)"/>
+    <path d="M6.4 16.4A9.6 9.6 0 0 1 25.6 16.4" fill="none" stroke="url(#arch)" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M8.3 16.4A7.7 7.7 0 0 0 23.7 16.4" fill="none" stroke="#fb923c" stroke-width="0.7" opacity="0.6"/>
+    <circle cx="16" cy="16.4" r="6.6" fill="#000000"/>
+    <circle cx="16" cy="16.4" r="6.75" fill="none" stroke="#ffe9c7" stroke-width="0.45" opacity="0.85"/>
+    <ellipse cx="16" cy="17.4" rx="15" ry="2.6" fill="url(#disk)" opacity="0.4" filter="url(#glow)"/>
+    <ellipse cx="16" cy="17.4" rx="14.5" ry="1.45" fill="url(#disk)"/>
+  </g>
+</svg>

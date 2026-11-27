@@ -1,0 +1,13 @@
+{
+  "name": "blog-icon-generator",
+  "private": true,
+  "description": "Regenerates public/favicon.ico, logo192.png and logo512.png from public/brand-mark.svg. Kept out of the root package so the site build never installs sharp.",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate.mjs"
+  },
+  "dependencies": {
+    "png-to-ico": "^2.1.8",
+    "sharp": "^0.34.0"
+  }
+}

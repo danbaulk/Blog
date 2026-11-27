@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# icon generator (scripts/icons) dependencies
+/scripts/icons/node_modules
