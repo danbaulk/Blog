@@ -1,10 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
-import baulkLogo from './assets/logo.jpeg';
-
 import './App.css';
-import 'react-multi-carousel/lib/styles.css';
 
 import Home from './Home';
 import FPLProject from './blogs/FPLProject';
@@ -19,8 +16,15 @@ function App() {
       <div className="App">
         <header className="banner">
           <div className="banner-inner">
-            <Link to="/" className="banner-brand" aria-label="Dan Baulk — home">
-              <img src={baulkLogo} alt="Dan Baulk" className="banner-logo"/>
+            <Link to="/" className="banner-brand" aria-label="Dan Baulk - home">
+              <img
+                src={`${process.env.PUBLIC_URL}/brand-mark.svg`}
+                alt=""
+                width="32"
+                height="32"
+                className="banner-mark"
+              />
+              <span className="banner-name">Dan Baulk</span>
             </Link>
             <nav className="banner-links">
               <a

@@ -1,5 +1,5 @@
 {
-  "short_name": "Blog",
+  "short_name": "Dan Baulk",
   "name": "Dan Baulk's blog",
   "icons": [
     {
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#0d0f14",
+  "background_color": "#0d0f14"
 }
