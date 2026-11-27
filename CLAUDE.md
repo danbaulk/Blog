@@ -34,7 +34,7 @@ The home page is a full-screen WebGL scene (`three`, lazy-loaded so post pages n
 - `GalaxyScene.js` - imperative three.js class (`start`/`dispose`/`pick`/`setHighlighted`). It creates its own canvas, renders the black hole at a reduced, self-adjusting resolution, and must free the WebGL context in `dispose()` because each home visit makes a new one.
 - `Galaxy.js` - React: mounts the scene, moves the DOM labels and hover card each frame through refs (not state), and owns pointer, touch and keyboard input (a visually hidden project nav that appears on focus).
 
-`prefers-reduced-motion` renders one still frame. If WebGL is unavailable or the context is lost, it falls back to a grid of `.project-card`s.
+`prefers-reduced-motion` renders one still frame. If WebGL is unavailable or the context is lost, or the lazy galaxy chunk fails to load (`ErrorBoundary` in `Home.js`), the page falls back to `src/ProjectGrid.js`, a plain grid of `.project-card`s whose styles sit in `App.css` so they load even when the galaxy chunk doesn't.
 
 ## Brand mark & icons
 

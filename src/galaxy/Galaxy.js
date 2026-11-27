@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import ProjectGrid from '../ProjectGrid';
 import GalaxyScene from './GalaxyScene';
 import './galaxy.css';
 
@@ -44,29 +45,46 @@ function Galaxy({ projects }) {
 
   const active = projects.find((p) => p.id === activeId) || null;
 
+  // Size the card from the DOM. Only done when the card or the stage changes size, so the
+  // per-frame placement below needs no layout reads.
+  const measureCard = useCallback((stage) => {
+    const card = cardRef.current;
+    if (card) cardSize.current = { width: card.offsetWidth, height: card.offsetHeight, stage };
+  }, []);
+
+  // Put the open card beside its star, flipping left near the right edge and clamping to
+  // the stage. `screen` and `stage` are the scene's latest projected stars and size.
+  const placeCard = useCallback((screen, stage) => {
+    const card = cardRef.current;
+    const star = screen.find((s) => s.id === activeRef.current);
+    if (!card || !star) return;
+    const sized = cardSize.current.stage;
+    if (!sized || sized.width !== stage.width || sized.height !== stage.height) measureCard(stage);
+    const { width: cw, height: ch } = cardSize.current;
+    const gap = CARD_GAP + star.radius * 0.5;
+    const right = star.x + gap + cw <= stage.width - EDGE;
+    const x = right ? star.x + gap : Math.max(EDGE, star.x - gap - cw);
+    const y = Math.min(Math.max(EDGE, star.y - ch / 2), Math.max(EDGE, stage.height - ch - EDGE));
+    card.style.transform = `translate(${x}px, ${y}px)`;
+    card.style.opacity = String(Math.max(star.visible, 0.35));
+    card.style.visibility = 'visible';
+  }, [measureCard]);
+
   // Runs every animation frame: move the DOM overlays to follow their stars. Writes go
   // straight to the elements so React doesn't re-render at 60fps.
-  const onFrame = useCallback((screen, { width, height }) => {
+  const onFrame = useCallback((screen, stage) => {
     for (const s of screen) {
       const label = labelRefs.current[s.id];
       if (!label) continue;
       label.style.transform = `translate(${s.x}px, ${s.y + s.radius * 0.6 + 6}px) translateX(-50%)`;
       label.style.opacity = String(s.visible * (s.id === activeRef.current ? 0 : 0.85));
     }
-
-    const card = cardRef.current;
-    const star = screen.find((s) => s.id === activeRef.current);
-    if (!card || !star) return;
-    const { width: cw, height: ch } = cardSize.current;
-    const gap = CARD_GAP + star.radius * 0.5;
-    const right = star.x + gap + cw <= width - EDGE;
-    const x = right ? star.x + gap : Math.max(EDGE, star.x - gap - cw);
-    const y = Math.min(Math.max(EDGE, star.y - ch / 2), Math.max(EDGE, height - ch - EDGE));
-    card.style.transform = `translate(${x}px, ${y}px)`;
-    card.style.opacity = String(Math.max(star.visible, 0.35));
-  }, []);
+    placeCard(screen, stage);
+  }, [placeCard]);
 
   useEffect(() => {
+    // Falling back unmounts the stage, so this also disposes a scene whose context was lost.
+    if (failed) return undefined;
     let scene;
     try {
       scene = new GalaxyScene(stageRef.current, projects, {
@@ -85,19 +103,20 @@ function Galaxy({ projects }) {
       scene.dispose();
       sceneRef.current = null;
     };
-  }, [projects, reducedMotion, onFrame]);
+  }, [projects, reducedMotion, failed, onFrame]);
 
-  useEffect(() => {
-    activeRef.current = activeId;
-    if (sceneRef.current) sceneRef.current.setHighlighted(activeId);
-  }, [activeId]);
-
-  // Measure the card once per project so the per-frame placement needs no layout reads.
+  // Highlight the active star, and measure and place a newly opened card before the
+  // browser paints, so it never shows for a frame at the stage's top-left corner.
   useLayoutEffect(() => {
-    if (cardRef.current) {
-      cardSize.current = { width: cardRef.current.offsetWidth, height: cardRef.current.offsetHeight };
-    }
-  }, [activeId]);
+    activeRef.current = activeId;
+    const scene = sceneRef.current;
+    if (!scene) return;
+    scene.setHighlighted(activeId);
+    if (!cardRef.current) return;
+    const stage = { width: scene.width, height: scene.height };
+    measureCard(stage);
+    placeCard(scene.screen, stage);
+  }, [activeId, measureCard, placeCard]);
 
   useEffect(() => {
     const timer = setTimeout(() => setHintVisible(false), 7000);
@@ -157,24 +176,7 @@ function Galaxy({ projects }) {
     setActiveId(id);
   };
 
-  if (failed) {
-    return (
-      <div className="galaxy-fallback container">
-        {projects.map((project) => (
-          <Link key={project.id} to={project.route} className="project-card">
-            <div className="project-card__media">
-              <img src={project.thumb} alt="" />
-            </div>
-            <div className="project-card__body">
-              <h3>{project.title}</h3>
-              <p>{project.blurb}</p>
-              <span className="project-card__cta">Read more →</span>
-            </div>
-          </Link>
-        ))}
-      </div>
-    );
-  }
+  if (failed) return <ProjectGrid projects={projects} />;
 
   return (
     <div className="galaxy">
@@ -202,10 +204,11 @@ function Galaxy({ projects }) {
 
       {active && (
         <Link
+          key={active.id}
           ref={cardRef}
           to={active.route}
           className="project-card galaxy-card"
-          style={{ '--star': active.color }}
+          style={{ '--star': active.color, visibility: 'hidden' }}
           tabIndex={-1}
           aria-hidden="true"
           onMouseEnter={cancelClear}

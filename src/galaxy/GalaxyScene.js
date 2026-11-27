@@ -24,9 +24,15 @@ import {
 const MAX_DPR = 2;
 // The black-hole pass is the expensive one, so it starts below full resolution and
 // steps down further if frames run slow. It never steps back up, so it can't oscillate.
+// "Slow" is judged against the display's own refresh interval (the shortest frame seen),
+// so a screen capped at 30fps (iOS Low Power Mode, battery savers) isn't mistaken for a
+// struggling GPU. A GPU that can't hold 60fps on a 60Hz screen alternates 16ms and 33ms
+// frames, which pushes the average well past 1.4x the shortest frame.
 const START_SCALE = 0.75;
 const MIN_SCALE = 0.35;
-const SLOW_FRAME = 0.022;
+const SLOW_RATIO = 1.4;
+// Below roughly 28fps is always too slow, whatever the display can do.
+const ALWAYS_SLOW = 1 / 28;
 
 // The spiral eases down to this fraction of its speed while a star is highlighted.
 const HIGHLIGHT_SPEED = 0.1;
@@ -73,7 +79,6 @@ export default class GalaxyScene {
       if (this.onContextLost) this.onContextLost();
     };
     this.canvas.addEventListener('webglcontextlost', this.handleContextLost);
-    container.appendChild(this.canvas);
 
     this.width = 1;
     this.height = 1;
@@ -82,6 +87,7 @@ export default class GalaxyScene {
     this.elapsed = this.reducedMotion ? STILL_TIME : 0;
     this.speed = 1;
     this.frameAvg = 1 / 60;
+    this.shortestFrame = Infinity;
     this.adaptTimer = -2; // let shaders compile before judging frame times
     this.highlighted = null;
     this.pointer = new THREE.Vector2();
@@ -93,9 +99,16 @@ export default class GalaxyScene {
     this.ortho = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
     this.quad = new THREE.PlaneGeometry(2, 2);
 
-    this.buildBlackHole();
-    this.buildAmbient();
-    this.buildStars();
+    try {
+      this.buildBlackHole();
+      this.buildAmbient();
+      this.buildStars();
+    } catch (error) {
+      // Don't leave a live WebGL context behind for a scene the caller will never dispose.
+      this.releaseContext();
+      throw error;
+    }
+    container.appendChild(this.canvas);
 
     this.loop = this.loop.bind(this);
   }
@@ -251,10 +264,13 @@ export default class GalaxyScene {
 
   adaptResolution(dt) {
     this.frameAvg = this.frameAvg * 0.95 + dt * 0.05;
+    // Ignore sub-4ms intervals: rAF jitter, not a real refresh rate.
+    if (dt > 0.004) this.shortestFrame = Math.min(this.shortestFrame, dt);
     this.adaptTimer += dt;
     if (this.adaptTimer < 1) return;
     this.adaptTimer = 0;
-    if (this.frameAvg > SLOW_FRAME && this.scale > MIN_SCALE) {
+    const slow = this.frameAvg > Math.min(ALWAYS_SLOW, this.shortestFrame * SLOW_RATIO);
+    if (slow && this.scale > MIN_SCALE) {
       this.scale = Math.max(MIN_SCALE, this.scale * 0.8);
       this.resizeTarget();
     }
@@ -382,7 +398,6 @@ export default class GalaxyScene {
   dispose() {
     cancelAnimationFrame(this.raf);
     if (this.resizeObserver) this.resizeObserver.disconnect();
-    this.canvas.removeEventListener('webglcontextlost', this.handleContextLost);
 
     this.quad.dispose();
     this.ambientGeometry.dispose();
@@ -396,11 +411,20 @@ export default class GalaxyScene {
     this.glowTexture.dispose();
     this.target.dispose();
 
-    this.renderer.dispose();
-    // Release the GPU context now rather than waiting for GC: browsers cap live contexts,
-    // and every visit back to the home page creates a fresh one.
-    this.renderer.forceContextLoss();
+    this.releaseContext();
     this.canvas.remove();
+  }
+
+  /**
+   * Release the GPU context now rather than waiting for GC: browsers cap live contexts,
+   * and every visit back to the home page creates a fresh one. The listener goes first,
+   * because forcing the loss fires webglcontextlost.
+   */
+  releaseContext() {
+    this.canvas.removeEventListener('webglcontextlost', this.handleContextLost);
+    this.renderer.dispose();
+    // Already gone if the browser took it (the fallback path), and forcing it again warns.
+    if (!this.renderer.getContext().isContextLost()) this.renderer.forceContextLoss();
   }
 }
 

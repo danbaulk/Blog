@@ -55,6 +55,9 @@
   box-shadow: var(--shadow-hover), 0 0 32px -8px var(--star, var(--accent));
   will-change: transform;
   animation: galaxy-card-in 0.18s ease-out;
+  /* No transform transition: the transform is rewritten every frame to follow the star,
+     and easing it would make the card glide in from the corner and trail behind. */
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
 /* The card follows its star, so the shared card hover lift would fight the transform. */
@@ -141,13 +144,4 @@ a.galaxy-card.project-card:hover {
   outline: 2px solid var(--accent);
   outline-offset: 0;
   background-color: var(--accent-soft);
-}
-
-/* No WebGL: the same projects as a plain grid of cards. */
-.galaxy-fallback {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: var(--space-5);
-  padding-top: var(--space-7);
-  padding-bottom: var(--space-8);
 }
