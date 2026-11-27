@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
+import ProjectCard from './ProjectCard';
 
 /**
  * The projects as a plain grid of cards: what the home page shows when the galaxy can't
@@ -10,16 +11,7 @@ function ProjectGrid({ projects }) {
   return (
     <div className="project-grid container">
       {projects.map((project) => (
-        <Link key={project.id} to={project.route} className="project-card">
-          <div className="project-card__media">
-            <img src={project.thumb} alt="" />
-          </div>
-          <div className="project-card__body">
-            <h3>{project.title}</h3>
-            <p>{project.blurb}</p>
-            <span className="project-card__cta">Read more →</span>
-          </div>
-        </Link>
+        <ProjectCard key={project.id} project={project} />
       ))}
     </div>
   );

@@ -60,9 +60,9 @@
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-/* The card follows its star, so the shared card hover lift would fight the transform. */
+/* Keep the star's colour on hover. (The shared hover lift can't move the card: its
+   inline per-frame transform wins.) */
 a.galaxy-card.project-card:hover {
-  transform: none;
   border-color: var(--star, var(--accent));
 }
 

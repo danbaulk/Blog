@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import ProjectCard from '../ProjectCard';
 import ProjectGrid from '../ProjectGrid';
 import GalaxyScene from './GalaxyScene';
 import './galaxy.css';
@@ -203,26 +204,17 @@ function Galaxy({ projects }) {
       </div>
 
       {active && (
-        <Link
+        <ProjectCard
           key={active.id}
           ref={cardRef}
-          to={active.route}
-          className="project-card galaxy-card"
+          project={active}
+          className="galaxy-card"
           style={{ '--star': active.color, visibility: 'hidden' }}
           tabIndex={-1}
           aria-hidden="true"
           onMouseEnter={cancelClear}
           onMouseLeave={scheduleClear}
-        >
-          <div className="project-card__media">
-            <img src={active.thumb} alt="" />
-          </div>
-          <div className="project-card__body">
-            <h3>{active.title}</h3>
-            <p>{active.blurb}</p>
-            <span className="project-card__cta">Read more →</span>
-          </div>
-        </Link>
+        />
       )}
 
       <p className={`galaxy-hint${hintVisible ? '' : ' galaxy-hint--hidden'}`} aria-hidden="true">
